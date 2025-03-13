@@ -36,9 +36,11 @@ public class MissionActivity extends AppCompatActivity {
     private int mYear, mMonth, mDay;
     private Button btnEnvoyer, btnDateDebut, btnDateFin;
     private Spinner spiVilles;
-    private List<String> listeVilles;
+    private List<String> listeVillesStr;
+    private List<Ville> listeVilles;
     private ArrayAdapter<String> adapter;
     private String url = "http://10.0.2.2/missionepoka/listevilles.php";
+    private Ville maVille;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,15 +63,15 @@ public class MissionActivity extends AppCompatActivity {
         listeVilles = new ArrayList<>();
 
 //initialisation de l'adapter pour le spinner
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listeVilles);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listeVillesStr);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spiVilles.setAdapter(adapter);
 
-        chargerVilles();
+        chargerVilles(maVille);
     }
 
     //méthode qui prend les données en json renovyées par le service à l'url donnée, et les stock dans le spinner
-    private void chargerVilles() {
+    private void chargerVilles(Ville maVille) {
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -79,9 +81,11 @@ public class MissionActivity extends AppCompatActivity {
                             listeVilles.clear(); // Vider la liste existante
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject ville = response.getJSONObject(i);
+                                int idVille = ville.getInt("Vil_Id");
                                 String nomVille = ville.getString("Vil_Nom");
                                 String cpVille = ville.getString("Vil_CP");
-                                listeVilles.add(nomVille + " " + cpVille);
+                                listeVillesStr.add(nomVille + " " + cpVille);
+                                listeVilles.add(new Ville(idVille, nomVille, cpVille));
                             }
                             adapter.notifyDataSetChanged();
                             Log.d("MissionActivity", "Nombre de villes chargées : " + listeVilles.size());
@@ -134,6 +138,9 @@ public class MissionActivity extends AppCompatActivity {
 
     public void onClickBtnEnvoyer(View v){
         String dateDebut;
+        /*for (Ville ville : listeVilles){
+            if (ville.getNom() == spiVilles.getSelectedItem().toString()){
+        }*/
         String villeSelectionnee = spiVilles.getSelectedItem().toString();
     }
 }
