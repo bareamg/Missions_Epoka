@@ -1,3 +1,4 @@
+
 package com.example.missions_epoka;
 
 import android.app.DatePickerDialog;
@@ -19,7 +20,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -29,9 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MissionActivity extends AppCompatActivity {
     private EditText dateDebut, dateFin;
@@ -46,11 +44,11 @@ public class MissionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mission);
 
-        //initialisation des champs de saisies
+//initialisation des champs de saisies
         dateDebut = findViewById(R.id.dateDebut);
         dateFin = findViewById(R.id.dateFin);
 
-        //initialisation des boutons
+//initialisation des boutons
         btnEnvoyer = findViewById(R.id.btnEnvoyer);
         btnEnvoyer.setOnClickListener(this::onClickBtnEnvoyer);
         btnDateDebut = findViewById(R.id.btnDateDebut);
@@ -58,11 +56,11 @@ public class MissionActivity extends AppCompatActivity {
         btnDateFin = findViewById(R.id.btnDateFin);
         btnDateFin.setOnClickListener(this::onClickBtnDateFin);
 
-        //initialisation du spinner
+//initialisation du spinner
         spiVilles = findViewById(R.id.spiVilles);
         listeVilles = new ArrayList<>();
 
-        //initialisation de l'adapter pour le spinner
+//initialisation de l'adapter pour le spinner
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listeVilles);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spiVilles.setAdapter(adapter);
@@ -137,39 +135,5 @@ public class MissionActivity extends AppCompatActivity {
     public void onClickBtnEnvoyer(View v){
         String dateDebut;
         String villeSelectionnee = spiVilles.getSelectedItem().toString();
-    }
-
-    private void envoyerMissionAuServeur(Mission mission) {
-        String url = "http://10.0.2.2/missionepoka/inserer_mission.php";
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        if (response.contains("success")) {
-                            Toast.makeText(MissionActivity.this, "Mission enregistrée avec succès", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(MissionActivity.this, "Erreur lors de l'enregistrement", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MissionActivity.this, "Erreur réseau", Toast.LENGTH_SHORT).show();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("misDateDebut", mission.getMisDateDebut());
-                params.put("misDateFin", mission.getMisDateFin());
-                params.put("misNoVille", String.valueOf(mission.getMisNoVille()));
-
-                return params;
-            }
-        };
-
-        Volley.newRequestQueue(this).add(stringRequest);
     }
 }
