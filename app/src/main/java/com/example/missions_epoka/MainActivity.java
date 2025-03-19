@@ -25,7 +25,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     private EditText txfNo, txfMdp;
     private Button btnSeConnecter;
-    private final String URL = "http://10.0.2.2/missionepoka/authentification.php"; // Ajustez l'URL selon votre configuration
+    private final String URL = "http://10.0.2.2/missionepoka/authentification.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     public void OnClickBtnSeConnecter(View v) {
         String no = txfNo.getText().toString().trim();
         String mdp = txfMdp.getText().toString().trim();
-
         if (no.isEmpty() || mdp.isEmpty()) {
             Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
             return;
