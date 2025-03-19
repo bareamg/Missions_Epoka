@@ -60,6 +60,7 @@ public class MissionActivity extends AppCompatActivity {
 
 //initialisation du spinner
         spiVilles = findViewById(R.id.spiVilles);
+        listeVillesStr = new ArrayList<>();
         listeVilles = new ArrayList<>();
 
 //initialisation de l'adapter pour le spinner
@@ -68,6 +69,9 @@ public class MissionActivity extends AppCompatActivity {
         spiVilles.setAdapter(adapter);
 
         chargerVilles(maVille);
+        for(String ville : listeVillesStr){
+            Log.d("MyActivity", ville);
+        }
     }
 
     //méthode qui prend les données en json renovyées par le service à l'url donnée, et les stock dans le spinner
@@ -78,10 +82,10 @@ public class MissionActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            listeVilles.clear(); // Vider la liste existante
+                            listeVillesStr.clear(); // Vider la liste existante
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject ville = response.getJSONObject(i);
-                                int idVille = ville.getInt("Vil_Id");
+                                int idVille = ville.getInt("Vil_No");
                                 String nomVille = ville.getString("Vil_Nom");
                                 String cpVille = ville.getString("Vil_CP");
                                 listeVillesStr.add(nomVille + " " + cpVille);
