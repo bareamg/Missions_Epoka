@@ -9,16 +9,20 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/txvBienvenue"
+        android:id="@+id/du"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        android:gravity="center"
         android:text="Identification"
-        android:textSize="20sp" />
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5sp"
         android:text="No :"
         android:textSize="20sp" />
 
@@ -26,6 +30,7 @@
         android:id="@+id/txfNo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15sp"
         android:ems="10"
         android:inputType="text" />
 

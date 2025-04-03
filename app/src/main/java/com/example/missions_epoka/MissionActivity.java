@@ -209,10 +209,10 @@ public class MissionActivity extends AppCompatActivity {
                             String message = jsonResponse.getString("message");
 
                             if (success) {
-                                Toast.makeText(MissionActivity.this, message, Toast.LENGTH_LONG).show();
+                                Toast.makeText(MissionActivity.this, "Mission ajoutée avec succès.", Toast.LENGTH_LONG).show();
                                 finish(); // Ferme l'activité courante
                             } else {
-                                Toast.makeText(MissionActivity.this, message, Toast.LENGTH_LONG).show();
+                                Toast.makeText(MissionActivity.this, "Veuillez saisir tous les champs.", Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
